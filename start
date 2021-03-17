@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Configuration file for the agent
+OPTS="-v `pwd`/contrast_security.yaml:/juice-shop/contrast_security.yaml:ro"
+
+# If application.name not set in YAML file, you can specify in environment
+OPTS="$OPTS -e CONTRAST__APPLICATION__NAME=juiceshop-guide"
+
+OPTS="$OPTS -e DEBUG=contrast:\*"
+OPTS="$OPTS -e CONTRAST__AGENT__LOGGER__STDOUT=true"
+# /proc/1/fd/1 is stdout for pid 1 (our node app)
+OPTS="$OPTS -e CONTRAST__AGENT__SERVICE__LOGGER__PATH=/proc/1/fd/1"
+
+#OPTS="$OPTS -e CONTRAST__AGENT__LOGGER__LEVEL=debug"
+#OPTS="$OPTS -e CONTRAST__AGENT__SERVICE__LOGGER__LEVEL=debug"
+
+echo STARTING WITH docker run --rm -it --name contrast-js -p 3000:3000 $OPTS juiceshop:contrast
+docker run --rm -it --name contrast-js -p 3000:3000 $OPTS juiceshop:contrast

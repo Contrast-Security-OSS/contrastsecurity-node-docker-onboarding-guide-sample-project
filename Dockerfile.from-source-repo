@@ -1,0 +1,28 @@
+FROM node:lts as installer
+
+# Pull down the application source
+RUN git clone https://github.com/bkimminich/juice-shop /juice-shop
+
+# Ensure our dependencies are available...
+WORKDIR /juice-shop
+RUN npm install --production --unsafe-perm
+# ...including the Contrast agent
+RUN npm install --production @contrast/agent
+RUN npm dedupe
+# We don't need these
+RUN rm -rf frontend/node_modules
+
+# Second stage builds a lean runtime environment
+FROM node:lts-alpine
+WORKDIR /juice-shop
+RUN addgroup juicer && \
+    adduser -D -G juicer juicer
+COPY --from=installer --chown=juicer /juice-shop .
+RUN mkdir logs && \
+    chown -R juicer logs && \
+    chgrp -R 0 ftp/ frontend/dist/ logs/ data/ i18n/ && \
+    chmod -R g=u ftp/ frontend/dist/ logs/ data/ i18n/
+USER juicer
+EXPOSE 3000
+
+CMD ["node", "-r", "@contrast/agent", "app"]

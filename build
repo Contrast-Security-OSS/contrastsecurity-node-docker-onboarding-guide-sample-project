@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Should be run with exactly one command-line argument, which contains the
+# path to the Dockerfile which will be built
+
+if [ -n "$1" ]; then
+    docker build --rm -t juiceshop:contrast -f "$1" .
+else
+    echo "usage: $0 path_to_Dockerfile"
+fi
