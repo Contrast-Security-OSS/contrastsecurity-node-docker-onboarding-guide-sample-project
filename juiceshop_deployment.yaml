@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: juiceshop
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      component: juiceshop
+  template:
+    metadata:
+      labels:
+        component: juiceshop
+    spec:
+      containers:
+      - name: juiceshop
+        image: zencid/juiceshop-k8s:contrast
+        ports: 
+          - containerPort: 3000
+        envFrom:
+          - configMapRef:
+              name: contrast-config  
+        # Volume Mount for contrast_security.yaml  
+        volumeMounts:
+        - name: contrast-security
+          readOnly: false
+          mountPath: "/etc/contrast"
+        resources:
+          requests:
+            cpu: 1.0
+            memory: 2Gi
+          limits:
+            cpu: 2.0
+            memory: 4Gi
+      # Volume from contrast-security secret     
+      volumes:
+      - name: contrast-security
+        secret:
+          secretName: contrast-security
+
+

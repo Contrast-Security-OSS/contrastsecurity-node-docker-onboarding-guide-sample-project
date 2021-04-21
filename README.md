@@ -1,6 +1,6 @@
 # Contrast agent deployment in Docker - Node.js
 
-This repo is a companion to the [Contrast agent deployment in Docker - Node.js guide](https://docs.google.com/document/d/1MRixVNxp1yl5df3lqoij56gM5_XH5sJroCrW_Vt0CT4/edit?usp=sharing).
+This repo is a companion to the [Contrast agent deployment in Docker - Node.js guide](https://support.contrastsecurity.com/hc/en-us/articles/360054526851-Node-js-agent-with-Docker).
 
 ## Prerequisites
 

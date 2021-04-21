@@ -7,4 +7,4 @@ WORKDIR /juice-shop
 RUN npm install --production @contrast/agent
 
 # Change the startup command to preload Contrast agent
-CMD ["node", "-r", "@contrast/agent", "app"]
+CMD ["node", "-r", "@contrast/agent", "build/app"]
