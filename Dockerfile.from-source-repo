@@ -25,4 +25,4 @@ RUN mkdir logs && \
 USER juicer
 EXPOSE 3000
 
-CMD ["node", "-r", "@contrast/agent", "app"]
+CMD ["node", "-r", "@contrast/agent", "build/app"]
