@@ -1,5 +1,5 @@
 # Start from an existing app image
-FROM bkimminich/juice-shop
+FROM bkimminich/juice-shop:v12.7.0
 
 WORKDIR /juice-shop
 
