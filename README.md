@@ -26,7 +26,7 @@ You may use environment variables to configure Contrast:
 
 ```shell
 docker run --rm -it -p 3000:3000 \
-  -e CONTRAST__API__KEY=<value> \
+  -e CONTRAST__API__API_KEY=<value> \
   -e CONTRAST__API__SERVICE_KEY=<value> \
   -e CONTRAST__API__URL=<value> \
   -e CONTRAST__API__USER_NAME=<value> \

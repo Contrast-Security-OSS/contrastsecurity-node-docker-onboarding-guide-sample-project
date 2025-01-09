@@ -1,10 +1,15 @@
 # Start from an existing app image
-FROM bkimminich/juice-shop:v12.7.0
+# FROM bkimminich/juice-shop:v12.7.0
+FROM bkimminich/juice-shop:latest as installer
 
+FROM node:20
 WORKDIR /juice-shop
+COPY --from=installer /juice-shop .
 
 # Add in the Contrast agent
 RUN npm install --production @contrast/agent
 
+EXPOSE 3000
+
 # Change the startup command to preload Contrast agent
-CMD ["node", "-r", "@contrast/agent", "build/app"]
+CMD ["node", "--import", "@contrast/agent", "build/app"]
